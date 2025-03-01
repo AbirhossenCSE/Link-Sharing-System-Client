@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/Authcontext';
+import SocialLogin from './SocialLogin';
 
 
 const SignIn = () => {
@@ -95,7 +96,7 @@ const SignIn = () => {
                 </p>
 
                 <div className="mt-6">
-                    {/* <SocialLogin /> */}
+                    <SocialLogin />
                 </div>
             </div>
         </div>

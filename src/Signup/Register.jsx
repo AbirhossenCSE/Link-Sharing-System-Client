@@ -3,12 +3,14 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import Swal from "sweetalert2";
 import auth from "../firebase/firebase.init";
-
+import SocialLogin from "./SocialLogin";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Register = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
     const location = useLocation();
+    const axiosPublic = useAxiosPublic();
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -31,7 +33,7 @@ const Register = () => {
             await updateProfile(user, { displayName: name });
 
             // Save user to database
-            // saveUserToDatabase(user.uid, user.email, name);
+            await saveUserToDatabase(user.uid, user.email, name);
 
             Swal.fire({
                 title: "Success!",
@@ -49,19 +51,19 @@ const Register = () => {
         }
     };
 
-    // // Function to save user to the database
-    // const saveUserToDatabase = (uid, email, displayName) => {
-    //     fetch("https://job-task-server-chi-gilt.vercel.app/users", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({ uid, email, displayName }),
-    //     })
-    //         .then((res) => res.json())
-    //         .then((data) => console.log("User saved:", data))
-    //         .catch((error) => console.error("Error saving user:", error));
-    // };
+    // Function to save user to the database using axiosPublic
+    const saveUserToDatabase = async (uid, email, displayName) => {
+        try {
+            const response = await axiosPublic.post("/users", {
+                uid,
+                email,
+                displayName,
+            });
+            console.log("User saved:", response.data);
+        } catch (error) {
+            console.error("Error saving user:", error);
+        }
+    };
 
     return (
         <div className="flex justify-center items-center min-h-screen">
@@ -89,7 +91,7 @@ const Register = () => {
                     Already have an account?{" "}
                     <Link to="/signin" className="text-blue-500">Login</Link>
                 </p>
-                {/* <SocialLogin></SocialLogin> */}
+                <SocialLogin />
             </div>
         </div>
     );
