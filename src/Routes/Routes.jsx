@@ -6,6 +6,8 @@ import Register from "../Signup/Register";
 import SignIn from "../Signup/SignIn";
 import LinkForm from "../pages/LinkForm";
 import LinkCard from "../pages/LinkCard";
+import MyLinks from "../pages/MyLinks";
+import EditFile from "../pages/EditFile";
 
 
 
@@ -30,6 +32,14 @@ export const router = createBrowserRouter([
     {
         path: '/success',
         element: <LinkCard></LinkCard>,
+    },
+    {
+        path: '/myLinks',
+        element: <MyLinks></MyLinks>,
+    },
+    {
+        path: '/edit/:id',
+        element: <EditFile></EditFile>,
     },
 
 
