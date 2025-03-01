@@ -28,8 +28,8 @@ const Navbar = () => {
 
     const links = (
         <>
-            <li>
-                <NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/linkForm">Form</NavLink></li>
         </>
     );
 
