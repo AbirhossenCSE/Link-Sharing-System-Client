@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FaMoon } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
+import AuthContext from "../context/Authcontext";
 
 
 const Navbar = () => {
-
+    const { user, signOutUser } = useContext(AuthContext);
     const [theme, setTheme] = useState('light');
 
+    const handleSignOut = () => {
+        signOutUser()
+            .then(() => {
+                console.log('Sign out successful');
+            })
+            .catch(() => {
+                console.log('Sign out failed');
+            });
+    };
 
     // Toggle dark/light mode
     const toggleTheme = () => {
@@ -66,6 +76,14 @@ const Navbar = () => {
                 >
                     {theme === "light" ? <FaMoon /> : <FiSun />}
                 </button>
+
+                {user ? (
+                    <button onClick={handleSignOut} className="btn">
+                        Sign Out
+                    </button>
+                ) : (
+                    <Link to="/signin">Sign-In</Link>
+                )}
 
             </div>
         </div>
