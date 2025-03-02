@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -27,7 +26,7 @@ const MyLinks = () => {
         }
     }, [user?.email, axiosSecure]);
 
-    // 🟢 Handle Delete with SweetAlert for files
+    //  Handle Delete with SweetAlert for files
     const handleFileDelete = async (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -51,7 +50,7 @@ const MyLinks = () => {
         });
     };
 
-    // 🟢 Handle Delete with SweetAlert for texts
+    //  Handle Delete with SweetAlert for texts
     const handleTextDelete = async (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -75,13 +74,12 @@ const MyLinks = () => {
         });
     };
 
-
-    // 🟢 Handle Edit for File - Navigate to Edit Page
+    //  Handle Edit for File - Navigate to Edit Page
     const handleFileEdit = (id) => {
         navigate(`/edit-file/${id}`);
     };
 
-    // 🟢 Handle Edit for Text - Navigate to Edit Page
+    //  Handle Edit for Text - Navigate to Edit Page
     const handleTextEdit = (id) => {
         navigate(`/edit-text/${id}`);
     };
@@ -89,77 +87,95 @@ const MyLinks = () => {
     return (
         <div>
             <Navbar />
-            <div className="p-4">
-                <h2 className="text-xl font-bold mb-4">My Shared Links</h2>
+            <div className="p-6 max-w-7xl mx-auto">
+                <h2 className="text-3xl font-semibold text-center mb-8">My Shared Links</h2>
 
                 {/* Displaying File Links */}
                 {links.length > 0 ? (
                     <div>
-                        <h3 className="font-semibold">File Links</h3>
-                        <ul>
+                        <h3 className="text-xl font-semibold mb-4">File Links</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {links.map((link) => (
-                                <li key={link._id} className="border p-3 mb-2 flex justify-between">
-                                    <div>
-                                        <p><strong>File:</strong> <a href={link.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500">{link.fileUrl}</a></p>
-                                        <p><strong>Uploaded by:</strong></p>
+                                <div key={link._id} className="bg-base-200 shadow-lg rounded-lg overflow-hidden">
+                                    <div className="p-6">
+                                        <p className="font-semibold">File:</p>
+                                        <a
+                                            href={link.fileUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-500 underline"
+                                        >
+                                            {link.fileUrl}
+                                        </a>
+                                        <p className="mt-2"><strong>Uploaded by:</strong></p>
                                         <p>Name: {link.username}</p>
                                         <p>Email: {link.email}</p>
+                                        <p>Link Type: {link.privacy}</p>
                                     </div>
-                                    <div className="flex space-x-2">
+                                    <div className="flex justify-between px-6 py-4 border-t">
                                         <button
-                                            className="bg-yellow-500 text-white px-3 py-1 rounded"
+                                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400 transition"
                                             onClick={() => handleFileEdit(link._id)}
                                         >
                                             Edit
                                         </button>
                                         <button
-                                            className="bg-red-500 text-white px-3 py-1 rounded"
+                                            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-400 transition"
                                             onClick={() => handleFileDelete(link._id)}
                                         >
                                             Delete
                                         </button>
                                     </div>
-                                </li>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 ) : (
-                    <p>No file links found.</p>
+                    <p className="text-center text-gray-500">No file links found.</p>
                 )}
 
                 {/* Displaying Text Links */}
                 {texts.length > 0 ? (
-                    <div className="mt-6">
-                        <h3 className="font-semibold">Text Links</h3>
-                        <ul>
+                    <div className="mt-8">
+                        <h3 className="text-xl font-semibold mb-4">Text Links</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {texts.map((text) => (
-                                <li key={text._id} className="border p-3 mb-2 flex justify-between">
-                                    <div>
-                                        <p><strong>Text Link:</strong> <a href={text.textLink} target="_blank" rel="noopener noreferrer" className="text-blue-500">{text.textLink}</a></p>
-                                        <p><strong>Saved by:</strong></p>
+                                <div key={text._id} className="bg-base-200 shadow-lg rounded-lg overflow-hidden">
+                                    <div className="p-6">
+                                        <p className="font-semibold">Text Link:</p>
+                                        <a
+                                            href={text.textLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-500 underline"
+                                        >
+                                            {text.textLink}
+                                        </a>
+                                        <p className="mt-2"><strong>Saved by:</strong></p>
                                         <p>Name: {text.username}</p>
                                         <p>Email: {text.email}</p>
+                                        <p>Link Type: {text.privacy}</p>
                                     </div>
-                                    <div className="flex space-x-2">
+                                    <div className="flex justify-between py-4 px-6 border-t">
                                         <button
-                                            className="bg-yellow-500 text-white px-3 py-1 rounded"
+                                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400 transition"
                                             onClick={() => handleTextEdit(text._id)}
                                         >
                                             Edit
                                         </button>
                                         <button
-                                            className="bg-red-500 text-white px-3 py-1 rounded"
+                                            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-400 transition"
                                             onClick={() => handleTextDelete(text._id)}
                                         >
                                             Delete
                                         </button>
                                     </div>
-                                </li>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 ) : (
-                    <p>No text links found.</p>
+                    <p className="text-center text-gray-500 mt-6">No text links found.</p>
                 )}
             </div>
         </div>
@@ -167,4 +183,3 @@ const MyLinks = () => {
 };
 
 export default MyLinks;
-

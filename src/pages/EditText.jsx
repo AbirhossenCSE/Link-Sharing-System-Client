@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import AuthContext from "../context/Authcontext";
+import Navbar from "../components/Navbar";
 
 const EditText = () => {
     const { id } = useParams();
@@ -14,7 +15,7 @@ const EditText = () => {
     const [textData, setTextData] = useState({
         text: "",
         privacy: "public",
-        password: "", // Only used for private links
+        password: "",
     });
 
     useEffect(() => {
@@ -24,7 +25,7 @@ const EditText = () => {
                 setTextData({
                     text: fetchedData.text || "",
                     privacy: fetchedData.privacy || "public",
-                    password: fetchedData.privacy === "private" ? fetchedData.password || "" : "", // Only set if private
+                    password: fetchedData.privacy === "private" ? fetchedData.password || "" : "",
                 });
             })
             .catch(error => console.error("Error fetching text data:", error));
@@ -48,11 +49,8 @@ const EditText = () => {
             delete updatedData.password;
         }
 
-        console.log("Sending data:", updatedData); // Debugging
-
         try {
-            const response = await axiosSecure.put(`/text/${id}`, updatedData);
-            console.log("Server Response:", response.data); // Debugging
+            await axiosSecure.put(`/text/${id}`, updatedData);
             Swal.fire("Updated!", "Your text has been updated.", "success");
             navigate("/myLinks");
         } catch (error) {
@@ -61,52 +59,67 @@ const EditText = () => {
         }
     };
 
-
     return (
-        <div className="p-4 max-w-lg mx-auto">
-            <h2 className="text-xl font-bold mb-4">Edit Text</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Textarea for text content */}
-                <textarea
-                    name="text"
-                    value={textData.text}
-                    onChange={handleChange}
-                    className="w-full p-2 border rounded"
-                    rows="4"
-                    required
-                />
+        <div>
+            <Navbar></Navbar>
+            <div className="flex items-center justify-center min-h-screen  px-4">
+                <div className="bg-base-300 shadow-lg rounded-lg p-6 max-w-lg w-full">
+                    <h2 className="text-3xl font-semibold  mb-5 text-center">
+                        Edit Text
+                    </h2>
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                        {/* Textarea for text content */}
+                        <div>
+                            <label className=" font-medium">Text Content:</label>
+                            <textarea
+                                name="text"
+                                value={textData.text}
+                                onChange={handleChange}
+                                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none mt-1"
+                                rows="5"
+                                required
+                            />
+                        </div>
 
-                {/* Privacy selection */}
-                <label className="block font-semibold">Privacy:</label>
-                <select
-                    name="privacy"
-                    value={textData.privacy}
-                    onChange={handleChange}
-                    className="w-full p-2 border rounded"
-                >
-                    <option value="public">Public</option>
-                    <option value="private">Private</option>
-                </select>
+                        {/* Privacy selection */}
+                        <div>
+                            <label className=" font-medium">Privacy:</label>
+                            <select
+                                name="privacy"
+                                value={textData.privacy}
+                                onChange={handleChange}
+                                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none mt-1"
+                            >
+                                <option value="public">Public</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </div>
 
-                {/* Password field (only shown if privacy is private) */}
-                {textData.privacy === "private" && (
-                    <div>
-                        <label className="block font-semibold">Password:</label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={textData.password}
-                            onChange={handleChange}
-                            className="w-full p-2 border rounded"
-                            required
-                        />
-                    </div>
-                )}
+                        {/* Password field (only shown if privacy is private) */}
+                        {textData.privacy === "private" && (
+                            <div>
+                                <label className="text-gray-700 font-medium">Password:</label>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={textData.password}
+                                    onChange={handleChange}
+                                    className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none mt-1"
+                                    required
+                                />
+                            </div>
+                        )}
 
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-                    Save Changes
-                </button>
-            </form>
+                        {/* Save button */}
+                        <button
+                            type="submit"
+                            className="w-full bg-blue-500 text-white py-3 rounded-md text-lg font-medium transition duration-300 hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                        >
+                            Save Changes
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };

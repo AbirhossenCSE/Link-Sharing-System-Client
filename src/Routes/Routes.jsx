@@ -9,6 +9,7 @@ import LinkCard from "../pages/LinkCard";
 import MyLinks from "../pages/MyLinks";
 import EditFile from "../pages/EditFile";
 import EditText from "../pages/EditText";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -36,7 +37,7 @@ export const router = createBrowserRouter([
     },
     {
         path: '/myLinks',
-        element: <MyLinks></MyLinks>,
+        element: <PrivateRoute><MyLinks></MyLinks></PrivateRoute>,
     },
     {
         path: '/edit-file/:id',
