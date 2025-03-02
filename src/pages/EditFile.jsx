@@ -1,3 +1,5 @@
+
+
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
@@ -10,15 +12,32 @@ const EditFile = () => {
     const { id } = useParams();
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
-    const [fileUrl, setFileUrl] = useState("");
+
+    const [fileData, setFileData] = useState({
+        fileUrl: "",
+        privacy: "public",
+        password: "",
+    });
     const [selectedFile, setSelectedFile] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    // Fetch file details
     useEffect(() => {
         axiosSecure.get(`/uploads/${id}`)
-            .then(res => setFileUrl(res.data.fileUrl))
+            .then(res => setFileData(res.data))
             .catch(error => console.error("Error fetching file details:", error));
     }, [id, axiosSecure]);
+
+    // Handle input change
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFileData({ ...fileData, [name]: value });
+
+        // Remove password when switching to public
+        if (name === "privacy" && value === "public") {
+            setFileData((prev) => ({ ...prev, password: "" }));
+        }
+    };
 
     // Handle file selection
     const handleFileChange = (e) => {
@@ -44,7 +63,7 @@ const EditFile = () => {
 
             const data = await response.json();
             if (data.success) {
-                setFileUrl(data.data.url);
+                setFileData((prev) => ({ ...prev, fileUrl: data.data.url }));
                 Swal.fire("Success!", "File uploaded successfully!", "success");
             } else {
                 Swal.fire("Error!", "File upload failed!", "error");
@@ -56,17 +75,24 @@ const EditFile = () => {
         setLoading(false);
     };
 
-    // Update the file URL in the database
+    // Update the file URL and privacy settings in the database
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        if (!fileUrl) {
+        if (!fileData.fileUrl) {
             Swal.fire("Warning!", "Please upload a file or provide a valid file URL!", "warning");
             return;
         }
 
+        const updateData = { ...fileData };
+
+        // Remove password field if public
+        if (updateData.privacy === "public") {
+            delete updateData.password;
+        }
+
         try {
-            await axiosSecure.put(`/uploads/${id}`, { fileUrl });
+            await axiosSecure.put(`/uploads/${id}`, updateData);
             Swal.fire("Success!", "File updated successfully.", "success");
             navigate("/myLinks"); // Redirect after updating
         } catch (error) {
@@ -102,12 +128,38 @@ const EditFile = () => {
                 {/* Display current file URL */}
                 <div className="mt-4">
                     <p className="text-gray-700 font-medium">Current File Link:</p>
-                    {fileUrl && (
-                        <a href={fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500">
-                            {fileUrl}
+                    {fileData.fileUrl && (
+                        <a href={fileData.fileUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500">
+                            {fileData.fileUrl}
                         </a>
                     )}
                 </div>
+
+                {/* Privacy Selection */}
+                <label className="block mt-4 font-semibold">Privacy:</label>
+                <select
+                    name="privacy"
+                    value={fileData.privacy}
+                    onChange={handleChange}
+                    className="w-full p-2 border rounded"
+                >
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
+
+                {/* Password Input (Only for Private) */}
+                {fileData.privacy === "private" && (
+                    <label className="block mt-4">
+                        <span className="text-gray-700">Set Password:</span>
+                        <input
+                            type="password"
+                            name="password"
+                            value={fileData.password}
+                            onChange={handleChange}
+                            className="w-full p-2 border rounded"
+                        />
+                    </label>
+                )}
 
                 {/* Update Button */}
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mt-4">

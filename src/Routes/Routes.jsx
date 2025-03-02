@@ -8,6 +8,7 @@ import LinkForm from "../pages/LinkForm";
 import LinkCard from "../pages/LinkCard";
 import MyLinks from "../pages/MyLinks";
 import EditFile from "../pages/EditFile";
+import EditText from "../pages/EditText";
 
 
 
@@ -38,8 +39,12 @@ export const router = createBrowserRouter([
         element: <MyLinks></MyLinks>,
     },
     {
-        path: '/edit/:id',
+        path: '/edit-file/:id',
         element: <EditFile></EditFile>,
+    },
+    {
+        path: '/edit-text/:id',
+        element: <EditText></EditText>,
     },
 
 
