@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { FaMoon } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import AuthContext from "../context/Authcontext";
+import logo from "../assets/links.svg"
 
 
 const Navbar = () => {
@@ -62,6 +63,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <a className="btn btn-ghost font-bold text-2xl ml-20 items-center">
+                    <img src={logo} className="w-10 h-10" alt="" />
                     ShareLink
                 </a>
             </div>

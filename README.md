@@ -1,12 +1,86 @@
-# React + Vite
+# ShareLink - Private & Public Link Sharing System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🔗 Live Demo
+[ShareLink - Live](https://sharelink-8fda4.web.app/)
 
-Currently, two official plugins are available:
+## 📖 About the Project
+ShareLink is a web-based system that allows users to upload files (images, PDFs) and text, generate shareable links, and manage access settings. Users can mark their links as **public** (accessible by anyone) or **private** (requiring authentication or a password). The platform includes:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- File Upload (Images, PDFs, Docs) 📂
+- Text Sharing 📝
+- Public & Private Link Management 🔒
+- User Authentication (Firebase) 🔐
+- Responsive UI 🎨
 
-## Expanding the ESLint configuration
+## 🚀 Technologies Used
+- **Frontend:** React.js (Vite), Tailwind CSS
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB (NoSQL)
+- **Authentication:** Firebase
+- **File Upload API:** ImgBB
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Installation & Setup
+
+### 1️⃣ Clone the Repository
+```sh
+git clone https://github.com/AbirhossenCSE/Link-Sharing-System-Client
+cd Link-Sharing-System-Client
+```
+
+### 2️⃣ Install Dependencies
+#### Frontend Setup
+```sh
+npm install
+```
+#### Backend Setup
+```sh
+npm install
+```
+
+### 3️⃣ Setup Environment Variables
+Create a **.env** file in the root directories of **frontend** and **backend** with the required API keys.
+
+#### Frontend (.env)
+```
+VITE_IMAGE_KEY=your_imgbb_api_key
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+```
+
+#### Backend (.env)
+```
+MONGO_URI=your_mongodb_connection_string
+PORT=5000
+```
+
+### 4️⃣ Start the Development Server
+#### Run Frontend
+```sh
+cd frontend
+npm run dev
+```
+#### Run Backend
+```sh
+cd backend
+npm start
+```
+
+### 5️⃣ Open in Browser
+The app will run at:
+```
+http://localhost:5173/
+```
+
+## 📌 Features
+- ✅ Upload and generate shareable links for images and PDF files.
+- ✅ Save and share text via unique links.
+- ✅ Firebase authentication (Google sign-in, email/password login).
+- ✅ Private & public link management.
+- ✅ Responsive UI with Tailwind CSS.
+
+## 🤝 Contributing
+Contributions are welcome! Feel free to fork the repo, create a feature branch, and submit a pull request.
+
+
+---
+💡 **Developed by [Abir Hossen](https://github.com/AbirhossenCSE/)** 🚀
+
