@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
     },
     {
         path: '/linkForm',
-        element: <LinkForm></LinkForm>,
+        element: <PrivateRoute><LinkForm></LinkForm></PrivateRoute>,
     },
     {
         path: '/success',

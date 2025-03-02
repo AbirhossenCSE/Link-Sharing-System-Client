@@ -78,7 +78,7 @@ const AllLinks = () => {
         <div>
             <Navbar />
             <div className="p-8 mt-4 max-w-3xl mx-auto bg-base-300 shadow-lg rounded-lg">
-                <h2 className="text-3xl font-semibold text-center mb-6">All Shared Links</h2>
+                <h2 className="text-3xl font-bold text-center mb-6">All Shared Links</h2>
 
                 {/* Loader */}
                 {loading && (
@@ -90,7 +90,7 @@ const AllLinks = () => {
                 {/* File Links */}
                 {!loading && (
                     <div>
-                        <h3 className="text-2xl font-semibold mt-6 mb-4">File Links</h3>
+                        <h3 className="text-2xl font-bold mt-6 mb-4">File Links</h3>
                         {links.length === 0 ? <p>No file links available.</p> : links.map((link) => (
                             <div key={link._id} className="border-b py-4 flex flex-col space-y-2">
                                 <div className="flex justify-between items-center">
@@ -125,7 +125,7 @@ const AllLinks = () => {
                 {/* Text Links */}
                 {!loading && (
                     <div className="mt-8">
-                        <h3 className="text-2xl font-semibold mb-4">Text Links</h3>
+                        <h3 className="text-2xl font-bold mb-4">Text Links</h3>
                         {texts.length === 0 ? <p className="text-gray-500">No text links available.</p> : texts.map((text) => (
                             <div key={text._id} className="border-b py-4 flex flex-col space-y-2">
                                 <div className="flex justify-between items-center">
@@ -142,7 +142,7 @@ const AllLinks = () => {
                                                 View Text
                                             </button>
                                         ) : (
-                                            <p className="bg-gray-100 p-2 rounded">{revealedLinks[text._id]}</p>
+                                            <p className="bg-base-100 p-2 rounded">{revealedLinks[text._id]}</p>
                                         )}
                                     </div>
                                 ) : (

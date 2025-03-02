@@ -99,26 +99,26 @@ const LinkForm = () => {
         <div className="flex flex-col min-h-screen">
             <Navbar />
             <div className="flex-grow">
-                <div className="link-form p-8 max-w-2xl mx-auto bg-white shadow-lg rounded-lg mt-8">
-                    <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Create Shareable Link</h2>
+                <div className="link-form p-8 max-w-2xl mx-auto shadow-lg rounded-lg mt-8">
+                    <h2 className="text-3xl font-semibold text-center mb-6 ">Create Shareable Link</h2>
 
                     <div className="button-group mb-6 flex justify-center gap-4">
                         <button
                             onClick={() => setIsFileForm(true)}
-                            className={`py-2 px-6 rounded-lg text-white ${isFileForm ? 'bg-blue-600' : 'bg-gray-300'}`}
+                            className={`py-2 px-6 rounded-lg ${isFileForm ? 'bg-blue-600' : 'bg-gray-300'}`}
                         >
-                            Image & PDF Submission
+                            Image & PDF-File Submission
                         </button>
                         <button
                             onClick={() => setIsFileForm(false)}
-                            className={`py-2 px-6 rounded-lg text-white ${!isFileForm ? 'bg-green-600' : 'bg-gray-300'}`}
+                            className={`py-2 px-6 rounded-lg ${!isFileForm ? 'bg-green-600' : 'bg-gray-300'}`}
                         >
                             Text Submission
                         </button>
                     </div>
 
                     <div className="mb-4">
-                        <label className="block font-semibold text-gray-700">Select Privacy:</label>
+                        <label className="block font-semibold ">Select Privacy:</label>
                         <select
                             className="border p-3 rounded-lg w-full mt-2"
                             value={isPrivate ? "private" : "public"}
@@ -131,7 +131,7 @@ const LinkForm = () => {
 
                     {isPrivate && (
                         <div className="mb-4">
-                            <label className="block font-semibold text-gray-700">Set Password:</label>
+                            <label className="block font-semibold ">Set Password:</label>
                             <input
                                 type="password"
                                 className="border p-3 rounded-lg w-full mt-2"
@@ -144,7 +144,7 @@ const LinkForm = () => {
 
                     {isFileForm ? (
                         <div>
-                            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Upload File and Get Shareable Link</h3>
+                            <h3 className="text-2xl font-semibold  mb-4">Upload File and Get Shareable Link</h3>
                             <input
                                 type="file"
                                 onChange={handleFileChange}
@@ -162,7 +162,7 @@ const LinkForm = () => {
                         </div>
                     ) : (
                         <div>
-                            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Save Text and Get Shareable Link</h3>
+                            <h3 className="text-2xl font-semibold  mb-4">Save Text and Get Shareable Link</h3>
                             <textarea
                                 className="border p-3 rounded-lg w-full mt-4"
                                 rows="6"

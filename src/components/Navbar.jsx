@@ -70,7 +70,7 @@ const Navbar = () => {
         <nav className="bg-base-300 shadow-md">
             <div className="container mx-auto px-5 lg:px-20 flex items-center justify-between py-3">
                 {/* Logo */}
-                <Link to="/" className="flex items-center space-x-2">
+                <Link to="/" className="flex items-center justify-center gap-2">
                     <img src={logo} className="w-10 h-10" alt="Logo" />
                     <span className="text-2xl font-bold">ShareLink</span>
                 </Link>
