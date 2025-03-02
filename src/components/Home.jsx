@@ -13,7 +13,7 @@ const Home = () => {
                     Share Your Links Securely
                 </h1>
                 <p className="text-lg mt-4">
-                    Upload images, PDFs, or Text and generate private & public links.
+                    Upload images, PDF or Text and generate private & public links.
                 </p>
 
                 <div className="mt-6 flex flex-col md:flex-row gap-4">
