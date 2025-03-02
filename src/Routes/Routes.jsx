@@ -10,6 +10,7 @@ import MyLinks from "../pages/MyLinks";
 import EditFile from "../pages/EditFile";
 import EditText from "../pages/EditText";
 import PrivateRoute from "./PrivateRoute";
+import AllLinks from "../pages/Home/AllLinks";
 
 
 
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
     {
         path: '/signin',
         element: <SignIn></SignIn>,
+    },
+    {
+        path: '/allLinks',
+        element: <AllLinks></AllLinks>,
     },
     {
         path: '/linkForm',

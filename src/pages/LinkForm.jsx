@@ -4,6 +4,7 @@ import useAxiosPublic from '../hooks/useAxiosPublic';
 import AuthContext from '../context/Authcontext';
 import Navbar from '../components/Navbar';
 import Swal from 'sweetalert2';
+import Footer from '../components/Footer';
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -95,88 +96,91 @@ const LinkForm = () => {
     };
 
     return (
-        <div>
+        <div className="flex flex-col min-h-screen">
             <Navbar />
-            <div className="link-form p-8 max-w-2xl mx-auto bg-white shadow-lg rounded-lg mt-8">
-                <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Create Shareable Link</h2>
+            <div className="flex-grow">
+                <div className="link-form p-8 max-w-2xl mx-auto bg-white shadow-lg rounded-lg mt-8">
+                    <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">Create Shareable Link</h2>
 
-                <div className="button-group mb-6 flex justify-center gap-4">
-                    <button
-                        onClick={() => setIsFileForm(true)}
-                        className={`py-2 px-6 rounded-lg text-white ${isFileForm ? 'bg-blue-600' : 'bg-gray-300'}`}
-                    >
-                        Image & PDF Submission
-                    </button>
-                    <button
-                        onClick={() => setIsFileForm(false)}
-                        className={`py-2 px-6 rounded-lg text-white ${!isFileForm ? 'bg-green-600' : 'bg-gray-300'}`}
-                    >
-                        Text Submission
-                    </button>
-                </div>
+                    <div className="button-group mb-6 flex justify-center gap-4">
+                        <button
+                            onClick={() => setIsFileForm(true)}
+                            className={`py-2 px-6 rounded-lg text-white ${isFileForm ? 'bg-blue-600' : 'bg-gray-300'}`}
+                        >
+                            Image & PDF Submission
+                        </button>
+                        <button
+                            onClick={() => setIsFileForm(false)}
+                            className={`py-2 px-6 rounded-lg text-white ${!isFileForm ? 'bg-green-600' : 'bg-gray-300'}`}
+                        >
+                            Text Submission
+                        </button>
+                    </div>
 
-                <div className="mb-4">
-                    <label className="block font-semibold text-gray-700">Select Privacy:</label>
-                    <select
-                        className="border p-3 rounded-lg w-full mt-2"
-                        value={isPrivate ? "private" : "public"}
-                        onChange={(e) => setIsPrivate(e.target.value === "private")}
-                    >
-                        <option value="public">Public</option>
-                        <option value="private">Private</option>
-                    </select>
-                </div>
-
-                {isPrivate && (
                     <div className="mb-4">
-                        <label className="block font-semibold text-gray-700">Set Password:</label>
-                        <input
-                            type="password"
+                        <label className="block font-semibold text-gray-700">Select Privacy:</label>
+                        <select
                             className="border p-3 rounded-lg w-full mt-2"
-                            placeholder="Enter a password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                            value={isPrivate ? "private" : "public"}
+                            onChange={(e) => setIsPrivate(e.target.value === "private")}
+                        >
+                            <option value="public">Public</option>
+                            <option value="private">Private</option>
+                        </select>
                     </div>
-                )}
 
-                {isFileForm ? (
-                    <div>
-                        <h3 className="text-2xl font-semibold text-gray-800 mb-4">Upload File and Get Shareable Link</h3>
-                        <input
-                            type="file"
-                            onChange={handleFileChange}
-                            accept=".doc, .docx, .pdf, .jpg, .jpeg, .png"
-                            disabled={loading}
-                            className="border p-3 rounded-lg w-full mt-4"
-                        />
-                        <button
-                            onClick={handleFileUpload}
-                            disabled={loading || !file}
-                            className="mt-4 bg-blue-600 text-white py-2 px-6 rounded-lg w-full"
-                        >
-                            {loading ? 'Uploading...' : 'Upload File'}
-                        </button>
-                    </div>
-                ) : (
-                    <div>
-                        <h3 className="text-2xl font-semibold text-gray-800 mb-4">Save Text and Get Shareable Link</h3>
-                        <textarea
-                            className="border p-3 rounded-lg w-full mt-4"
-                            rows="6"
-                            placeholder="Enter text here..."
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                        ></textarea>
-                        <button
-                            onClick={handleTextSave}
-                            className="mt-4 bg-green-600 text-white py-2 px-6 rounded-lg w-full"
-                        >
-                            Save Text
-                        </button>
-                    </div>
-                )}
+                    {isPrivate && (
+                        <div className="mb-4">
+                            <label className="block font-semibold text-gray-700">Set Password:</label>
+                            <input
+                                type="password"
+                                className="border p-3 rounded-lg w-full mt-2"
+                                placeholder="Enter a password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                    )}
+
+                    {isFileForm ? (
+                        <div>
+                            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Upload File and Get Shareable Link</h3>
+                            <input
+                                type="file"
+                                onChange={handleFileChange}
+                                accept=".doc, .docx, .pdf, .jpg, .jpeg, .png"
+                                disabled={loading}
+                                className="border p-3 rounded-lg w-full mt-4"
+                            />
+                            <button
+                                onClick={handleFileUpload}
+                                disabled={loading || !file}
+                                className="mt-4 bg-blue-600 text-white py-2 px-6 rounded-lg w-full"
+                            >
+                                {loading ? 'Uploading...' : 'Upload File'}
+                            </button>
+                        </div>
+                    ) : (
+                        <div>
+                            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Save Text and Get Shareable Link</h3>
+                            <textarea
+                                className="border p-3 rounded-lg w-full mt-4"
+                                rows="6"
+                                placeholder="Enter text here..."
+                                value={text}
+                                onChange={(e) => setText(e.target.value)}
+                            ></textarea>
+                            <button
+                                onClick={handleTextSave}
+                                className="mt-4 bg-green-600 text-white py-2 px-6 rounded-lg w-full"
+                            >
+                                Save Text
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
+            <Footer />
         </div>
     );
 };
